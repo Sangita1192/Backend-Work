@@ -68,6 +68,7 @@ export default function Cart({ cartStatus, setCartStatus }) {
               <Link href="/checkouts">
                 <button 
                 className="text-[20px] hover:shadow-[5px_5px_0px_0px_#DDD] font-semibold flex justify-center items-center gap-2 text-white bg-black p-3 w-full mt-5"
+                onClick ={()=>setCartStatus(false)}
                 >
                   Secure Checkout <IoLockClosedOutline size={20} />
                 </button>

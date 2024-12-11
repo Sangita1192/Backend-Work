@@ -23,9 +23,9 @@ const { createProduct, readProducts, updateStatus, deleteOneProduct, deleteProdu
 const { generateOtpWeb, registerUser, verifyJwt, loginUser } = require("./website/userController");
 const { ActiveParentCategoryWeb } = require("./website/ParentCategoryController");
 const { ActiveProductCategoryWeb } = require("./website/ProductCategoryController");
-const { ActiveProductByParentCatWeb } = require("./website/ProductController");
-const { createCart, readCartforUser, updateCartItemQty, deleteCartItem } = require("./website/cartController");
-const { createCheckout } = require("./website/payment");
+const { ActiveProductByParentCatWeb, SearchProducts } = require("./website/ProductController");
+const { createCart, readCartforUser, updateCartItemQty, deleteCartItem, deleteCartItems } = require("./website/cartController");
+const { createCheckout, updatePaymentStatus } = require("./website/payment");
 
 
 module.exports ={
@@ -78,9 +78,12 @@ module.exports ={
     ActiveParentCategoryWeb,
     ActiveProductCategoryWeb,
     ActiveProductByParentCatWeb,
+    SearchProducts,
     createCart,
     readCartforUser,
     updateCartItemQty,
     deleteCartItem,
-    createCheckout
+    deleteCartItems,
+    createCheckout,
+    updatePaymentStatus
 }

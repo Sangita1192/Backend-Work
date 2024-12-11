@@ -58,7 +58,7 @@ const updateCartItemQty = async (req, res) => {
             req.params,
             { $set: req.body }
         );
-        res.status(200).json({ message: "success", data:response });
+        res.status(200).json({ message: "success", data: response });
     }
     catch (error) {
         console.log(error);
@@ -68,22 +68,35 @@ const updateCartItemQty = async (req, res) => {
 
 //deleteCartItem
 
-const deleteCartItem = async(req,res)=>{
-    try{
-        console.log(req.params);
+const deleteCartItem = async (req, res) => {
+    try {
         const response = await Cart.deleteOne(req.params);
-        res.status(200).json({message:"success", data:response});
+        res.status(200).json({ message: "success", data: response });
     }
-    catch(error){
+    catch (error) {
         console.log(error);
-        res.status(500).json({message:"internal server error"});
+        res.status(500).json({ message: "internal server error" });
     }
 }
 
+//deleteAllCartItem 
+const deleteCartItems = async (req, res) => {
+    try {
+        console.log(req.params);
+        const response = await Cart.deleteMany({ user: req.params.id });
+        res.status(200).json({ message: 'success', data: response });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'internal server error' });
+    }
+
+}
 
 module.exports = {
     createCart,
     readCartforUser,
     updateCartItemQty,
-    deleteCartItem
+    deleteCartItem,
+    deleteCartItems
 }

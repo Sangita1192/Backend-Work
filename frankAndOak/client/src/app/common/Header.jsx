@@ -89,7 +89,7 @@ export default function Header() {
 
 
   return (
-    <div className='fixed top-0 z-[999999] w-full'>
+    <div className='sticky top-0 z-[999999] w-full'>
       <TextSlider />
       <header className='shadow-md py-2 lg:py-1 px-2 sm:px-4 md:px-10 bg-white flex justify-between'>
         <div className='  flex gap-2 sm:gap-4 items-center  basis-[70%] md:basis-[20%] lg:basis-[15%]'>
