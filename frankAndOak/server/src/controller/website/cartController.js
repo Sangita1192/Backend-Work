@@ -9,7 +9,6 @@ const createCart = async (req, res) => {
             color,
             size
         })
-        console.log(isFindData);
 
         if (isFindData) {
             const response = await Cart.updateOne(
@@ -84,7 +83,7 @@ const deleteCartItems = async (req, res) => {
     try {
         console.log(req.params);
         const response = await Cart.deleteMany({ user: req.params.id });
-        res.status(200).json({ message: 'success', data: response });
+        res.status(200).json({ message: 'success', data:response});
     }
     catch (error) {
         console.log(error);

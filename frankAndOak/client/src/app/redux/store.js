@@ -4,6 +4,9 @@ import ParentCategorySlice  from './slices/parentCategorySlice'
 import ProductCategorySlice from './slices/productCategorySlice'
 import ProductSlice from './slices/productSlice'
 import CartSlice from './slices/cartSlice'
+import WishlistSlice from './slices/wishlistSlice'
+import OrderSlice from './slices/orderSlice'
+
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +14,8 @@ export const store = configureStore({
     parentCategory: ParentCategorySlice,
     productCategory: ProductCategorySlice,
     product: ProductSlice,
-    cart: CartSlice
+    cart: CartSlice,
+    wishlist: WishlistSlice,
+    order: OrderSlice
   },
 })

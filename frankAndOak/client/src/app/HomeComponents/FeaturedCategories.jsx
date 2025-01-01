@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function FeaturedCategories() {
   return (
-    <section className='max-w-[1460px] mx-auto py-[50px]'>
+    <section className='max-w-[1460px] mx-auto py-[50px] px-1'>
         <h3 className='md:text-[32px] text-[22px] font-medium'>Featured Categories</h3>
         <div className='grid md:grid-cols-4 grid-cols-2 md:space-y-0 xs:space-y-8 space-y-12 py-[50px] md:gap-5 gap-3'>
             <div className='cursor-pointer '>

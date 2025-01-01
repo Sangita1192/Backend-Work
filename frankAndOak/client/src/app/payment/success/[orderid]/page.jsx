@@ -1,24 +1,28 @@
 'use client'
+import { fetchCart } from '@/app/redux/slices/cartSlice';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { SiTicktick } from 'react-icons/si'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function PaymentSucess() {
+    const  dispatch = useDispatch();
     const {orderid} = useParams();
     const router= useRouter();
-    const [cart,setCart] = useState([]);
+    const [userId,setUserId] = useState('');
     const [time, setTime] = useState(10);
 
     const cartData = useSelector((state)=>state.cart.value);
+    const userData = useSelector((state)=> state.user.value);
 
+    // useEffect(()=>{
+    //     if(cartData.data?.[0]?.user) console.log(cartData.data[0].user); 
+    // },[cartData]);
+    
     useEffect(()=>{
-        if(cartData) {
-            setCart(cartData.data); 
-            console.log(cartData.data.user);
-        }
-    },[cartData])
+        if(userData.data?._id) setUserId(userData.data._id); 
+    },[userData])
 
     const timerCount = ()=>{
         let count = time;
@@ -33,30 +37,26 @@ function PaymentSucess() {
         },1000)
     }
     
-   
-
     useEffect(()=>{
         timerCount();
-
         if(!orderid) return;
-
         axios.put(`http://localhost:4800/api/website/payment/update-payment-status/${orderid}`, {status: "success"})
         .then((response)=>{
-            console.log(response);
-            // axios.put(`http://localhost:4800/api/website/cart/delete-cartitems/${user._id}`)
-            // .then((response)=>{
-            //     console.log('deletecart==>', response);
-            // })
-            // .catch((error)=>{
-            //     console.log(error);
-            // })
-            
+            console.log("payment==>",response);
+            axios.put(`http://localhost:4800/api/website/cart/delete-cartitems/${userId}`)
+            .then((response)=>{
+                console.log('deletecart==>', response);
+                dispatch(fetchCart(userId));
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
         })
         .catch((error)=>{
             console.log(error);
         })
 
-    },[orderid])
+    },[orderid, userId])
   return (
     <>
     <div className='flex flex-col h-[40vh] justify-center items-center'>

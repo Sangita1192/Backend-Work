@@ -14,6 +14,19 @@ export const fetchActiveProductCategory = createAsyncThunk(
     }
 )
 
+export const fetchActiveProductCatAsPerParentCat = createAsyncThunk(
+    'productCategory/fetchActiveProdCatAsPerParentCat',
+    async(parent_category,thunkApi)=>{
+        try{
+            const response = await axios.get(`http://localhost:4800/api/website/product-categories/read-product-category-by-parent/${parent_category}`);
+            return response.data.data;
+        }
+        catch{
+            return thunkApi.rejectWithValue(error.message);
+        }
+    }
+)
+
 const initialState ={
     value: {},
     loading: false,
@@ -28,11 +41,24 @@ export const ProductCategorySlice = createSlice({
         builder
         .addCase(fetchActiveProductCategory.fulfilled, (state, action)=>{
             state.value = action.payload;
+            console.log('activeProducts==>', state.value)
             state.loading = false;
            
         })
         .addCase(fetchActiveProductCategory.rejected, (state,action)=>{
             state.error = action.payload;
+            console.log('activeProducts==>', state.error)
+            state.loading = false;
+        })
+        .addCase(fetchActiveProductCatAsPerParentCat.fulfilled, (state, action)=>{
+            state.value = action.payload;
+            console.log('activeProductaspercategory==>', state.value)
+            state.loading = false;
+           
+        })
+        .addCase(fetchActiveProductCatAsPerParentCat.rejected, (state,action)=>{
+            state.error = action.payload;
+            console.log('activeProductaspercategory==>', state.error)
             state.loading = false;
         })
     }

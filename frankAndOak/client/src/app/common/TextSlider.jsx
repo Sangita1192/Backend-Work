@@ -15,7 +15,7 @@ export default function TextSlider() {
     waitForAnimate: false
   };
   return (
-    <div className='w-full bg-black sm:py-1 py-0.5'>
+    <div className='w-full bg-[#023020] sm:py-1 py-0.5 overflow-hidden'>
         <div className="slider-container text-center">
       <Slider {...settings}>
         <div>

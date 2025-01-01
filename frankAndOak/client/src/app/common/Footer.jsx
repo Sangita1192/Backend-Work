@@ -5,12 +5,13 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaPinterestP } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { FaLinkedinIn } from "react-icons/fa";
+
 export default function Footer() {
   return (
-    <footer className='w-full py-[50px] bg-black text-white px-5'>
+    <footer className='w-full py-[50px] bg-[#097969] text-white px-5'>
       <div className='max-w-[1400px] mx-auto w-full'>
         <div>
-        <div className='w-full bg-black text-white py-4'>
+        <div className='w-full bg-[#023020] text-white py-4'>
         <ul className='grid md:grid-cols-4 grid-cols-2 items-center md:gap-0 gap-5 justify-around'>
             <li className='flex flex-col text-center sm:gap-3 gap-2'>
                 <img className='lg:w-10 w-8 mx-auto' src="/images/truck.png" alt="" />
@@ -24,7 +25,7 @@ export default function Footer() {
             </li>
             <li className='flex flex-col text-center sm:gap-3 gap-2'>
                 <img className='lg:w-10 w-8 mx-auto' src="/images/earnpoints.webp" alt="" />
-                <div className='md:text-[20px] text-[15px] font-medium'>Frank&apos;s Club</div>
+                <div className='md:text-[20px] text-[15px] font-medium'>Style Sphere</div>
                 <span className='md:text-sm text-[10px] font-medium'>Earn points and get rewards.</span>
             </li>
             <li className='flex flex-col text-center sm:gap-3 gap-2'>
@@ -37,7 +38,7 @@ export default function Footer() {
         </div>
         <div className='grid lg:grid-cols-[15%_55%_25%] grid-cols-1 justify-between py-24'>
           <div className='lg:order-1 order-2'>
-            <img className='lg:w-[50%] w-[30%] lg:mx-0 mx-auto lg:py-0 py-4 ' src="https://image.pitchbook.com/TF1G8VX2INpsvUYFzsmNbKdIZSf1693233775973_200x200" alt="" />
+            <img className='lg:w-[50%] w-[30%] lg:mx-0 mx-auto lg:py-0 py-4 ' src="/images/logo.webp" alt="" />
             <h4 className='lg:hidden block text-center text-[18px] font-medium pt-5'>Stay Connected</h4>
             <ul className='flex gap-3 py-5 lg:justify-start justify-center'>
               <li className='cursor-pointer'><CiInstagram size={22} /></li>
@@ -85,32 +86,32 @@ export default function Footer() {
             <h4 className='text-[20px] font-medium pb-3'>Stay in touch</h4>
             <p className='sm:text-[12px] text-[10px] font-medium'>Join our newsletter and stay in the know about new collections, outfit inspiration, sales, and more.</p>
             <form className='space-y-4 py-4'>
-              <input className='text-sm w-full py-3 focus:ring-white focus:ring-2 text-white font-medium bg-[#1F2322] border border-white' type="email" required placeholder='Email' />
-              <input className='text-sm w-full py-3 focus:ring-white focus:ring-2 text-white font-medium bg-[#1F2322] border border-white' type="text" required placeholder='First Name' />
+              <input className='text-sm w-full py-3 focus:ring-white focus:ring-2 text-white font-medium bg-[#023020]  border border-white' type="email" required placeholder='Email' />
+              <input className='text-sm w-full py-3 focus:ring-white focus:ring-2 text-white font-medium bg-[#023020] border border-white' type="text" required placeholder='First Name' />
               <div className='flex items-center gap-3'>
                   <label className='text-[13px] font-medium' htmlFor="radioBtns">I shop for:</label>
                   <div className='flex gap-4 py-2'>
                     <div>
-                    <input type="radio" id='MenBtn' name='radioBtn' className='form-radio bg-black border-white checked:bg-black text-black focus:ring-black me-2' />
+                    <input type="radio" id='MenBtn' name='radioBtn' className='form-radio bg-[#40826D] border-white checked:bg-black text-black focus:ring-black me-2' />
                     <label className='text-[13px] font-medium' htmlFor="MenBtn">Men</label>
                     </div>
                     <div>
-                    <input type="radio" id='WomenBtn' name='radioBtn' className='form-radio bg-black border-white checked:bg-black text-black focus:ring-black me-2' />
+                    <input type="radio" id='WomenBtn' name='radioBtn' className='form-radio bg-[#40826D] border-white checked:bg-black text-black focus:ring-black me-2' />
                     <label className='text-[13px] font-medium' htmlFor="WomenBtn">Women</label>
                     </div>
                     <div>
-                    <input type="radio" id='AllBtn' name='radioBtn' className='form-radio bg-black border-white checked:bg-black text-black focus:ring-black me-2' />
+                    <input type="radio" id='AllBtn' name='radioBtn' className='form-radio bg-[#40826D] border-white checked:bg-black text-black focus:ring-black me-2' />
                     <label className='text-[13px] font-medium' htmlFor="AllBtn">All</label>
                     </div>
                   </div>
                 </div>
-              <button type='submit' className='bg-black border border-white py-3 w-full text-sm font-medium hover:shadow-Btn-shadow-white'>Subscribe</button>
+              <button type='submit' className='bg-[#40826D] border border-white py-3 w-full text-sm font-medium hover:shadow-Btn-shadow-white'>Subscribe</button>
             </form>
             </div>
         </div>
         <div className='flex md:flex-row flex-col items-center justify-between'>
-          <h6 className='text-[12px] font-medium'>© Frank And Oak 2024 , All Rights Reserved.</h6>
-          <h6 className='text-[12px] font-medium'>Created with 💖 by Roshan Chaurasia</h6>
+          <h6 className='text-[12px] font-medium'>© Style Sphere 2024 , All Rights Reserved.</h6>
+          <h6 className='text-[12px] font-medium'>Created by Sangeeta Panwar</h6>
         </div>
         </div>
     </footer>

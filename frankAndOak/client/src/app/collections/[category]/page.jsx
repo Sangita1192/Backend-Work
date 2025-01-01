@@ -18,11 +18,11 @@ export default function Category() {
   const dispatch = useDispatch();
   const parentCategories = useSelector((state)=> state.parentCategory.value);
   const products = useSelector((state)=>state.product.value)
-  
-  
+
+ 
   useEffect(()=>{
     if(parentCategories.data){
-      const selectedCategory = parentCategories.data.filter((cat)=> cat.name === decodeURIComponent(category));
+      const selectedCategory = parentCategories.data.filter((cat)=> cat.name.toLowerCase() === decodeURIComponent(category).toLowerCase()); //decode the URL componet "Women%20%26%20Kids" with "Women & Kids"
       const id = selectedCategory[0]._id;
       dispatch(fetchActiveProducts(id)); 
     }
@@ -36,8 +36,8 @@ export default function Category() {
 
   return (
     <>
-    <Header/>
-    <section className='grid lg:grid-cols-[17%_83%] md:grid-cols-[25%_75%] justify-between mt-[50px] md:px-5 px-0 pt-[30px]'>
+    
+    <section className='grid lg:grid-cols-[17%_83%] md:grid-cols-[25%_75%] justify-between md:px-5 px-0 pt-[30px]'>
         <CategorySidebar/>
         <div className='sticky top-0 p-4 h-screen overflow-y-scroll catListScroll'>
             <div className='w-full border-b border-gray-300 py-6 flex items-center md:justify-end justify-between'>
@@ -55,7 +55,7 @@ export default function Category() {
                 allProducts.map((product,index)=>{
                   return(
                     <>
-                     <Card key={index} product={product} filepath ={filePath}/>
+                     <Card key={product._id} product={product} filepath ={filePath}/>
                     </>
                   )
                 })
@@ -125,7 +125,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red
@@ -139,7 +139,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red
@@ -153,7 +153,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red
@@ -167,7 +167,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red
@@ -181,7 +181,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red
@@ -195,7 +195,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red
@@ -209,7 +209,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red
@@ -223,7 +223,7 @@ export function CategorySidebar() {
                         class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
                     />
                     <label
-                        for="red-checkbox"
+                        htmlFor="red-checkbox"
                         class="ms-2 text-[14px] font-semibold"
                     >
                         Red

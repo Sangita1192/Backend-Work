@@ -15,6 +15,32 @@ export const fetchActiveProducts = createAsyncThunk(
     }
 )
 
+export const fetchallProducts = createAsyncThunk(
+    'product/fetchAllProduts',
+    async(_,thunkApi)=>{
+        try{
+            const response = await axios.get(`http://localhost:4800/api/website/products/all-products`);
+            return response.data;
+        }
+        catch(error){
+            return thunkApi.rejectWithValue(error.message);
+        }
+    }
+)
+
+export const fetchProduct = createAsyncThunk(
+    'product/fetchProdut',
+    async(id,thunkApi)=>{
+        try{
+            const response = await axios.get(`http://localhost:4800/api/website/products/read-product/${id}`);
+            return response.data;
+        }
+        catch(error){
+            return thunkApi.rejectWithValue(error.message);
+        }
+    }
+)
+
 const initialState ={
     value:{},
     loading:false,
@@ -33,7 +59,21 @@ const ProductSlice = createSlice({
         })
         .addCase(fetchActiveProducts.rejected, (state, action)=>{
             state.error = action.payload;
-        });
+        })
+        .addCase(fetchallProducts.fulfilled,(state,action)=>{
+            state.value = action.payload;
+            state.loading = false;
+        })
+        .addCase(fetchallProducts.rejected, (state, action)=>{
+            state.error = action.payload;
+        })
+        .addCase(fetchProduct.fulfilled,(state,action)=>{
+            state.value = action.payload;
+            state.loading = false;
+        })
+        .addCase(fetchProduct.rejected, (state, action)=>{
+            state.error = action.payload;
+        })
 
     }
 })

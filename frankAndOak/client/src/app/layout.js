@@ -1,7 +1,6 @@
 "use client"
 import "./globals.css";
 import LayoutWrapper from "./LayoutWrapper";
-
 import { Provider } from 'react-redux'
 import { store } from "./redux/store";
 

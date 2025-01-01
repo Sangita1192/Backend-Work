@@ -3,7 +3,7 @@ import React from 'react'
 export default function BetterLiving() {
   return (
     <section className='max-w-[1450px] mx-auto py-[50px] grid md:grid-cols-[40%_55%] sm:grid-cols-1 md:gap-0 gap-10 items-center justify-between lg:px-0 md:px-5 px-2'>
-        <div>
+        <div className='ps-2'>
             <h2 className='lg:text-[48px] text-[30px] font-medium mb-8'>Inspire Better Living.</h2>
             <p className='lg:text-[25px] text-[20px] font-semibold leading-9 mb-6 text-[#666]'>Born in Canada, we are grounded on innovation, our community, and respecting the planet we all call home.</p>
             <a href="#" className='lg:text-[28px] text-[22px] font-medium  underline underline-offset-2'>Who We Are</a>

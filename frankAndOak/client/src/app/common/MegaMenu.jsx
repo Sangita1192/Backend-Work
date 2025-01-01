@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchActiveProductCatAsPerParentCat } from "../redux/slices/productCategorySlice";
 
-export function ThisJustInMegaMenu({menuHover,setMenuHover}) {
+export function ThisJustInMegaMenu({ menuHover, setMenuHover }) {
   return (
-    <div onMouseOver={()=>setMenuHover(1)} onMouseOut={()=>setMenuHover(0)} className={`${menuHover==1 ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
+    <div onMouseOver={() => setMenuHover(1)} onMouseOut={() => setMenuHover(0)} className={`${menuHover == 1 ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
       <div className="grid grid-cols-[28%_auto] gap-24 p-10">
         <div className="flex justify-between">
           <ul className="space-y-2">
@@ -15,22 +17,22 @@ export function ThisJustInMegaMenu({menuHover,setMenuHover}) {
               Shop All
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Tops
+              Tops
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Bottoms
+              Bottoms
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Jackets & Coats
+              Jackets & Coats
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Blazers
+              Blazers
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Dresses
+              Dresses
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Accessories
+              Accessories
             </li>
           </ul>
           <ul className="space-y-2">
@@ -43,19 +45,19 @@ export function ThisJustInMegaMenu({menuHover,setMenuHover}) {
               Shop All
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Tops
+              Tops
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Bottoms
+              Bottoms
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Overshirts
+              Overshirts
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Jackets & Coats
+              Jackets & Coats
             </li>
             <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Accessories
+              Accessories
             </li>
           </ul>
         </div>
@@ -74,100 +76,39 @@ export function ThisJustInMegaMenu({menuHover,setMenuHover}) {
   );
 }
 
-export function WomenMegaMenu({menuHover,setMenuHover}) {
+export function WomenMegaMenu({ menuHover, setMenuHover }) {
+  const [productCat, setProductCat] = useState([])
+  const dispatch = useDispatch();
+  const parentCategoryData = useSelector((state) => state.parentCategory.value);
+  useEffect(() => {
+    if (parentCategoryData.data) {
+      const selectedCat = parentCategoryData.data.filter((cat) => cat.name === 'Men');
+      const id = selectedCat[0]._id;
+      setProductCat(dispatch(fetchActiveProductCatAsPerParentCat(id)))
+    }
+  }, [parentCategoryData])
   return (
-    <div onMouseOver={()=>setMenuHover(2)} onMouseOut={()=>setMenuHover(0)} className={`${menuHover==2 ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
+    <div onMouseOver={() => setMenuHover(2)} onMouseOut={() => setMenuHover(0)} className={`${menuHover == 1 ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
       <div className="grid grid-cols-[38%_auto] gap-32 p-10">
         <div className="flex justify-between">
           <ul className="space-y-2">
-            <li>
-              <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
-              Featured
-              </h4>
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-              New In
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Best Sellers
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Coming Soon
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            The Skyline
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            The Originals
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Workwear
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Gift Cards
-            </li>
-            <li className="text-[13px] text-[#ED2E00] font-semibold cursor-pointer hover:underline">
-            Sale
-            </li>
-          </ul>
-          <ul className="space-y-2">
-            <li>
-              <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
-              Clothing
-              </h4>
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-              Shop All
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Tops
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Bottoms
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Overshirts
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Jackets & Coats
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Accessories
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Jackets
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Skirts
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Denim
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Skirts & Shorts
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Matching Sets
-            </li>
-          </ul>
-          <ul className="space-y-2">
-            <li>
-              <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
-              Accessories
-              </h4>
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-              Shop All
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Tops
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Bottoms
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Overshirts
-            </li>
+            {
+              productCat.map((product) => (
+                <li>
+                  <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
+                    Featured
+                  </h4>
+                  <ul>
+                    <li className="text-[13px] font-semibold cursor-pointer hover:underline">
+                      New In
+                    </li>
+                    <li className="text-[13px] font-semibold cursor-pointer hover:underline">
+                      Best Sellers
+                    </li>
+                  </ul>
+                </li>
+              ))
+            }
           </ul>
         </div>
         <div className="grid grid-cols-2 gap-10">
@@ -185,101 +126,51 @@ export function WomenMegaMenu({menuHover,setMenuHover}) {
   );
 }
 
-export function MenMegaMenu({menuHover,setMenuHover}) {
+export function MenMegaMenu({ menuHover, setMenuHover }) {
+  const [productCategory, setProductCat] = useState([]);
+  const dispatch = useDispatch();
+  const category = menuHover;
+  const parentCategoryData = useSelector((state) => state.parentCategory.value);
+  const productCat = useSelector((state) => state.productCategory.value);
+  useEffect(() => {
+    if (parentCategoryData.data) {
+      if(menuHover){  
+        const selectedCat = parentCategoryData.data.filter((cat) => cat.name === menuHover);
+        const id = selectedCat[0]._id;
+        dispatch(fetchActiveProductCatAsPerParentCat(id));
+      }
+      
+    }
+  }, [parentCategoryData, dispatch,menuHover])
+
+  useEffect(() => {
+    if (productCat.data) setProductCat(productCat.data);
+  }, [productCat])
   return (
-    <div onMouseOver={()=>setMenuHover(3)} onMouseOut={()=>setMenuHover(0)} className={`${menuHover==3 ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
+    <div onMouseOver={() => setMenuHover(category)} onMouseOut={() => setMenuHover(0)} className={`${menuHover ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
       <div className="grid grid-cols-[38%_auto] gap-32 p-10">
         <div className="flex justify-between">
-          <ul className="space-y-2">
-            <li>
-              <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
-              Featured
-              </h4>
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-              New In
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Best Sellers
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Coming Soon
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            The Skyline
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            The Originals
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Workwear
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Gift Cards
-            </li>
-            <li className="text-[13px] text-[#ED2E00] font-semibold cursor-pointer hover:underline">
-            Sale
-            </li>
-          </ul>
-          <ul className="space-y-2">
-            <li>
-              <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
-              Clothing
-              </h4>
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-              Shop All
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Tops
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Bottoms
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Overshirts
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Jackets & Coats
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Accessories
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Jackets
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Skirts
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Denim
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Skirts & Shorts
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Matching Sets
-            </li>
-          </ul>
-          <ul className="space-y-2">
-            <li>
-              <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
-              Accessories
-              </h4>
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-              Shop All
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Tops
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Bottoms
-            </li>
-            <li className="text-[13px] font-semibold cursor-pointer hover:underline">
-            Overshirts
-            </li>
-          </ul>
+          {
+            productCategory.map((product) => (
+              <ul>
+                <li>
+                  <h4 className="text-[15px] font-medium underline underline-offset-8 pb-3">
+                    Featured
+                  </h4>
+                  <ul>
+                    <li className="text-[13px] font-semibold cursor-pointer hover:underline">
+                      New In
+                    </li>
+                    <li className="text-[13px] font-semibold cursor-pointer hover:underline">
+                      Best Sellers
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+            ))
+          }
+
         </div>
         <div className="grid grid-cols-2 gap-10">
           <figure className="w-full relative">
@@ -296,9 +187,9 @@ export function MenMegaMenu({menuHover,setMenuHover}) {
   );
 }
 
-export function OurStoryMegaMenu({menuHover,setMenuHover}) {
+export function OurStoryMegaMenu({ menuHover, setMenuHover }) {
   return (
-    <div onMouseOver={()=>setMenuHover(4)} onMouseOut={()=>setMenuHover(0)} className={`${menuHover==4 ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
+    <div onMouseOver={() => setMenuHover(4)} onMouseOut={() => setMenuHover(0)} className={`${menuHover == 4 ? "opacity-100 visible" : "opacity-0 invisible"} duration-500 w-full bg-[#F9F9F9] absolute left-0 top-[100%]`}>
       <div className="grid grid-cols-1 p-10">
         <div className="grid grid-cols-6 gap-7">
           <figure className="w-full h-[280px] relative">

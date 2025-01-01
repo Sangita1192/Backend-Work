@@ -18,19 +18,24 @@ import { fetchParentCategory } from '../redux/slices/parentCategorySlice';
 import { fetchActiveProductCategory } from '../redux/slices/productCategorySlice';
 import { fetchActiveProducts } from '../redux/slices/productSlice';
 import { fetchCart } from '../redux/slices/cartSlice';
+import { fetchWishlist } from '../redux/slices/wishlistSlice';
 import { MdOutlineLogout } from 'react-icons/md';
+import { fetchOrderDetails } from '../redux/slices/orderSlice';
+
 
 
 
 export default function Header() {
+
   let [loginStatus, setLoginStatus] = useState(false)
   let [cartStatus, setCartStatus] = useState(false);
-  let [logoutStatus, setLogoutStatus]= useState(false);
+  let [logoutStatus, setLogoutStatus] = useState(false);
   let [menuHover, setMenuHover] = useState(0)
   let [sidebarStatus, setSidebarStatus] = useState(false);
   const [parentCategories, setParentCategories] = useState([]);
   const [user, setUser] = useState({});
-  const[item, setItem] = useState(null); // total cart products
+  const [item, setItem] = useState(null); // total cart products
+  const [wishlistItem, setWishlistItem] = useState(null);
 
 
   //to call the slice functions
@@ -38,10 +43,9 @@ export default function Header() {
 
   //useSelector Hook, for using data from store
   const category = useSelector((state) => state.parentCategory.value);
-  const userData = useSelector((state)=>state.user.value);
-  const cartData = useSelector((state)=> state.cart.value);
-  
- 
+  const userData = useSelector((state) => state.user.value);
+  const cartData = useSelector((state) => state.cart.value);
+  const wishlistData = useSelector((state) => state.wishlist.value);
 
   useEffect(() => {
     if (category.data) setParentCategories(category.data);
@@ -51,51 +55,59 @@ export default function Header() {
     //call fetch parent category reducer
     dispatch(fetchParentCategory());
     dispatch(fetchActiveProductCategory());
-
     const auth = Cookies.get('frankandoak_user');
-    
     if (!auth) return;
     dispatch(verifyLogin(auth));
-
   }, [dispatch])
 
   //add userData to 'user'
-  useEffect(()=>{
-    if(userData.data) setUser(userData.data);
+  useEffect(() => {
+    if (userData.data) setUser(userData.data);
   }, [userData]);
- 
+
   //call Cart function if we get userId
-  useEffect(()=>{
-    if(user._id) dispatch(fetchCart(user._id));
-    console.log('userId===>', user._id);
-  },[user]);
+  useEffect(() => {
+    if (user._id) {
+      dispatch(fetchCart(user._id));
+      dispatch(fetchWishlist(user._id));
+    };
+  }, [user]);
 
+  useEffect(() => {
+    if (wishlistData.data.products) setWishlistItem(wishlistData.data.products.length);
+  }, [wishlistData])
 
-  useEffect(()=>{
-    
-    if(cartData.data) {
+  useEffect(() => {
+    console.log('cartData===>', cartData)
+    if (cartData.data) {
       let total = 0;
-      if(cartData.data.length > 1){
-        cartData.data.forEach((item)=>{
-            total += item.quantity;
-          })
-      }else{
-          total = cartData.data.quantity;
+      if (cartData.data.length > 1) {
+        cartData.data.forEach((item) => {
+          total += item.quantity;
+        })
+      } else {
+        total = cartData.data.quantity;
       }
       setItem(total);
     }
-  },[cartData])
+  }, [cartData])
 
-
+  //logout function remove cookies data and navigate to home page
+  const handleLogout = () => {
+    Cookies.remove('frankandoak_user');
+    window.location.assign('/'); // Redirect and reload the page
+  }
 
   return (
-    <div className='sticky top-0 z-[999999] w-full'>
+    <div className='sticky top-0 z-[9999] w-full'>
       <TextSlider />
-      <header className='shadow-md py-2 lg:py-1 px-2 sm:px-4 md:px-10 bg-white flex justify-between'>
-        <div className='  flex gap-2 sm:gap-4 items-center  basis-[70%] md:basis-[20%] lg:basis-[15%]'>
+      <header className='shadow-md py-2 lg:py-1 px-2 sm:px-4 md:px-10 bg-[#097969] text-white flex justify-between'>
+        <div className='  flex gap-2 sm:gap-4 items-center   basis-[70%] md:basis-[20%] lg:basis-[15%]'>
           <RxHamburgerMenu onClick={() => setSidebarStatus(true)} className='sm:hidden block w-[22px] h-7' />
-          <MobileSideBar sidebarStatus={sidebarStatus} />
-          <span className='font-bold md:text-[18px] text-[15px]'>Frank And Oak</span>
+          <MobileSideBar sidebarStatus={sidebarStatus} setSidebarStatus={setSidebarStatus} />
+          <span className='font-bold md:text-[18px] text-[15px]'>
+            <img src="/images/title.jpg" alt="" />
+          </span>
         </div>
         <nav className=' basis-[30%] lg:basis-[84%] md:basis-[75%]  flex items-center justify-end lg:justify-between'>
           <div className='lg:block  hidden'>
@@ -104,24 +116,21 @@ export default function Header() {
                 parentCategories.map((cat, index) =>
                 (
                   <li key={cat._id}
-                    onMouseOver={() => setMenuHover(`${index+1}`)}
+                    onMouseOver={() => setMenuHover(`${cat.name}`)}
                     onMouseOut={() => setMenuHover(0)}
-                    className='hover:bg-[#F9F9F9] cursor-pointer hover:underline underline-offset-4 px-3 duration-500 p-2'>
+                    className='hover:bg-[#96DED1] cursor-pointer hover:underline underline-offset-4 px-3 duration-500 p-2'>
                     <Link href={`/collections/${cat.name}`}>
                       {cat.name}
                     </Link>
-                    <MenMegaMenu
-                      menuHover={menuHover}
-                      setMenuHover={setMenuHover} />
+                    {/* <MenMegaMenu menuHover={menuHover} setMenuHover={setMenuHover} /> */}
                   </li>
-                )
+                   
 
-                )
+                ))
               }
-
               <li
                 onMouseOver={() => setMenuHover(4)} onMouseOut={() => setMenuHover(0)}
-                className='hover:bg-[#F9F9F9] cursor-pointer hover:underline underline-offset-4 px-3 duration-500 p-2'>Our Story
+                className='hover:bg-[#96DED1] cursor-pointer hover:underline underline-offset-4 px-3 duration-500 p-2'>Our Story
                 <OurStoryMegaMenu menuHover={menuHover} setMenuHover={setMenuHover} />
               </li>
             </ul>
@@ -129,31 +138,51 @@ export default function Header() {
           <ul className='flex gap-3 sm:gap-5'>
             <li>
               <Link href={"/pages/search"}>
-                <CiSearch className='sm:w-7 sm:h-7 h-5 w-5' />
+                <CiSearch className='sm:w-7 sm:h-7 h-5 w-5 hover:bg-[#96DED1]' />
               </Link>
             </li>
-            <li className='cursor-pointer relative' 
-            onClick={() => setLoginStatus(true)} 
-            onMouseOver={()=>setLogoutStatus(true)}
-            onMouseOut={()=>setLogoutStatus(false)}>
-              
-              <MdOutlineLogout className={`absolute top-[100%] left-[50%] w-100 ${logoutStatus? 'block': 'hidden'}`}/> 
-              
-              <FaRegUserCircle className='sm:w-[22px]  sm:h-7 h-5 w-[18px] ' />
+            <li className='cursor-pointer relative'
+              onClick={() => {
+                if (Object.keys(user).length === 0) {
+                  setLoginStatus(true); // Open Login component if user is not logged in
+                } else {
+                  setLogoutStatus((prev) => !prev); // Toggle dropdown visibility if user is logged in
+                }
+              }}
+            >
+              <FaRegUserCircle className='sm:w-[22px] sm:h-7 h-5 w-[18px] hover:bg-[#96DED1] ' />
               <Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+              <ul className={`w-[130px] unstyled shadow-sm bg-gray-200 absolute top-[100%] left-[-150%] divide-y ${(Object.keys(user).length !== 0 && logoutStatus) ? 'block' : 'hidden'}`}>
+                <li className='px-[10px] py-[5px]'> Profile </li>
+                <Link href={`/user-dashboard/order/${user._id}`}>
+                  <li className='px-[10px] py-[5px]'> Your Order</li>
+                </Link>
+                <Link href={'/user-dashboard/wishlist'}>
+                  <li className='px-[10px] py-[5px]'>Your WishList</li>
+                </Link>
+
+                <li
+                  className='px-[10px] py-[5px]'
+                  onClick={handleLogout}
+                > Logout
+                </li>
+              </ul>
+
             </li>
-            <li>
+            <li className='cursor-pointer flex items-end justify-center gap-[3px]'>
               <Link href={"/user-dashboard/wishlist"}>
-                <FaRegHeart className='sm:w-[22px] sm:h-7 h-5 w-[18px] cursor-pointer' />
+                <FaRegHeart className='sm:w-[22px] sm:h-7 h-5 w-[18px] cursor-pointer hover:bg-[#96DED1]' />
               </Link>
+              <span className={`text-[16px]`}>
+                {wishlistItem == null || wishlistItem < 1 ? '0' : wishlistItem}
+              </span>
             </li>
-            <li className='cursor-pointer relative' >
-              <BsBagPlus className='sm:w-[22px] sm:h-7 h-5 w-[18px] ' onClick={() => setCartStatus(true)}/>
-                <span className={`${item < 1 ? 'hidden': 'flex'} w-[30px] h-[30px] items-center justify-center absolute top-[-25%] left-[70%] bg-red-600 text-xs p-1 rounded-full text-white`}>
-                  {item}
-                </span>
+            <li className='cursor-pointer flex items-end justify-center gap-[3px]' >
+              <BsBagPlus className='sm:w-[22px] sm:h-7 h-5 w-[18px] hover:bg-[#96DED1] ' onClick={() => setCartStatus(true)} />
+              <span className={`text-[16px]`}>
+                {item == null || item < 1 ? '0' : item}
+              </span>
               <Cart cartStatus={cartStatus} setCartStatus={setCartStatus} />
-              
             </li>
           </ul>
         </nav>

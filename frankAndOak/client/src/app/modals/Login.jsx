@@ -7,10 +7,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import { Circles } from "react-loader-spinner";
+import Link from 'next/link';
 
 export default function Login({ loginStatus, setLoginStatus }) {
-  
+
 
   let [compStatus, setCompStatus] = useState(true)
 
@@ -65,66 +66,81 @@ export default function Login({ loginStatus, setLoginStatus }) {
   )
 }
 
-
-
-function LoginBox({}) {
-
-  const router = useRouter();  //initialize the router
+function LoginBox({ }) {
   const [loginData, setLoginData] = useState({});
-  const handleLogin = () => {
-    console.log('loginData', loginData)
-    axios.post('http://localhost:4800/api/website/users/login-user', loginData)
-    .then((response) => {
-      console.log(response);
-      Cookies.set('frankandoak_user', response.data.token, { expires: 10 });
-      // Navigate to a different page (e.g., home page) after login
-      router.push('/'); // Replace '/' with the path you want to navigate to
-      window.location.href = '/';
-    })
-    .catch((error) => {
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Login Failed',
-        position: 'top-end', 
-        text: error.response?.data?.message || 'An error occurred during login',
-        customClass: {
-          container: 'z-[99999999]',
-          popup: '!rounded-lg',
-          title: '!text-lg !font-semibold !text-gray-800',
-          htmlContainer: '!text-sm !text-gray-600',
-          confirmButton: '!bg-black !text-white !px-4 !py-2 !rounded-md !text-sm'
-        }
-      });
-    })
-  }
+  const [loading, setLoading] = useState(false);// State for the loader
 
+  const handleLogin = () => {
+    setLoading(true); //start the loader
+    axios.post('http://localhost:4800/api/website/users/login-user', loginData)
+      .then((response) => {
+        Cookies.set('frankandoak_user', response.data.token, { expires: 10 });
+        window.location.assign('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          position: 'top-center',
+          text: error.response?.data?.message || 'An error occurred during login',
+          customClass: {
+            container: 'z-[99999999]',
+            popup: '!rounded-lg',
+            title: '!text-lg !font-semibold !text-gray-800',
+            htmlContainer: '!text-sm !text-gray-600',
+            confirmButton: '!bg-black !text-white !px-4 !py-2 !rounded-md !text-sm'
+          }
+        });
+      })
+      .finally(() => {
+        setLoading(false); //stop the loader
+      })
+  }
   return (
-      <div className="flex flex-col gap-3 py-6">
-        <input
-          className="p-3 border text-[#757575] text-[14px] font-semibold border-[#757575] "
-          type="text"
-          placeholder="Email Address"
-          name='email'
-          onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-        />
-        <input
-          className="p-3 border text-[#757575] text-[14px] font-semibold border-[#757575] "
-          type="password"
-          placeholder="Password"
-          name='password'
-          onChange = {(e)=>setLoginData({ ...loginData, password: e.target.value})}
-        />
-        <span className="text-[13px] font-semibold underline">Forgot Password?</span>
-        <button
-          className="p-3.5 mt-2 bg-black text-white font-semibold"
-          type="button"
-          onClick={handleLogin}
-        >
-          Log In
-        </button>
-      </div>
-      
+    <div className="flex flex-col gap-3 py-6 relative">
+      <input
+        className="p-3 border text-[#757575] text-[14px] font-semibold border-[#757575] "
+        type="text"
+        placeholder="Email Address"
+        name='email'
+        onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+      />
+      <input
+        className="p-3 border text-[#757575] text-[14px] font-semibold border-[#757575] "
+        type="password"
+        placeholder="Password"
+        name='password'
+        onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+      />
+      <Link
+        href={"/user-dashboard/change-password"}
+        className="text-[13px] font-semibold underline"
+        onClick={()=>setLoginStatus(false)}
+      >
+        Forgot Password?
+      </Link>
+      <button
+        className="p-3.5 mt-2 bg-black text-white font-semibold"
+        type="button"
+        disabled={loading}
+        onClick={handleLogin}
+      >
+        {loading ? 'Logging in...' : 'Login'}
+      </button>
+      {loading && (
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <Circles
+            height="80"
+            width="80"
+            color="black"
+            ariaLabel="circles-loading"
+            visible={true}
+          />
+        </div>
+      )}
+    </div>
+
   )
 }
 

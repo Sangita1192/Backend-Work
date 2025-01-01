@@ -96,7 +96,6 @@ const updateProductCategory = async(req,res)=>{
         if(req.files){
             if(req.files.thumbnail) data.thumbnail = req.files.thumbnail[0].filename;
         }
-        console.log(req.files);
         const response = await ProductCategory.updateOne(req.params,
             {$set: data}
         )
@@ -126,7 +125,6 @@ const productCategoryByparentCategory = async(req,res)=>{
     try{
         const response = await ProductCategory.find(req.params).populate('parent_category');
         const filePath = `${req.protocol}://${req.get('host')}/frank-and-oak-admin-files/`;
-        console.log('response == >', response);
         res.status(200).json({message:"success", filePath, data:response});
         
     }

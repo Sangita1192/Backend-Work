@@ -10,7 +10,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red
@@ -24,7 +24,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red
@@ -38,7 +38,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red
@@ -52,7 +52,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red
@@ -66,7 +66,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red
@@ -80,7 +80,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red
@@ -94,7 +94,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red
@@ -108,7 +108,7 @@ export const SideData=[
                 class="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-black"
             />
             <label
-                for="red-checkbox"
+                htmlFor="red-checkbox"
                 class="ms-2 text-[14px] font-semibold"
             >
                 Red

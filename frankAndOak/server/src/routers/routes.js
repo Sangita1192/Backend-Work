@@ -12,6 +12,11 @@ const { ProductRouterWeb } = require('./website/product');
 const ProductRouter = require('./admin-panel/product');
 const { CartRouter } = require('./website/cart');
 const PaymentRouter = require('./website/payment');
+const StoryRouter = require('./admin-panel/story');
+const SliderRouter = require('./admin-panel/slider');
+const OrderRouter = require('./admin-panel/order');
+const WishListRouter = require('./website/wishlist');
+const OrderRouterWeb = require('./website/orderHistory');
 
 
 const adminPanelRouter = express.Router();  //hadnle all the routes of admin-panel
@@ -26,6 +31,10 @@ adminPanelRouter.use('/size', sizeRouter);
 adminPanelRouter.use('/admin', AdminRouter);
 adminPanelRouter.use('/color', colorRouter);
 adminPanelRouter.use('/products', ProductRouter)
+adminPanelRouter.use('/story', StoryRouter);
+adminPanelRouter.use('/slider', SliderRouter);
+adminPanelRouter.use('/order', OrderRouter);
+
 
 //website Routers
 
@@ -34,7 +43,10 @@ websiteRouter.use('/parent-categories', ParentCategoryRouterWeb)
 websiteRouter.use('/product-categories', ProductCategoryRouterWeb);
 websiteRouter.use('/products', ProductRouterWeb);
 websiteRouter.use('/cart', CartRouter);
+websiteRouter.use('/wishlist', WishListRouter);
 websiteRouter.use('/payment', PaymentRouter);
+websiteRouter.use('/order',OrderRouterWeb);
+
 
 
 

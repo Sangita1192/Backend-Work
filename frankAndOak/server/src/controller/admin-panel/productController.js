@@ -6,7 +6,6 @@ const createProduct = async(req,res)=>{
     try{
         
         const data = req.body;
-        console.log("files ===>",req.files)
         if(req.files){
             if(req.files.thumbnail) data.thumbnail = req.files.thumbnail[0].filename;
             if(req.files.secondary_thumbnail) data.secondary_thumbnail= req.files.secondary_thumbnail[0].filename;
@@ -15,8 +14,6 @@ const createProduct = async(req,res)=>{
 
         const dataToSave = new Product(data);
         const response = await dataToSave.save();
-        console.log(response);
-        console.log(data);
         res.status(200).json({message:"success", data:response});
     }
     catch(error){
@@ -80,11 +77,51 @@ const deleteProducts = async(req,res)=>{
     }
 }
 
+//read specific product 
+const readProduct = async(req,res)=>{
+    try{
+        const response = await Product.findOne(req.params)
+                            .populate('parent_category')
+                            .populate('product_category')
+                            .populate('size')
+                            .populate('color');
+        const filePath = `${req.protocol}://${req.get('host')}/frank-and-oak-admin-files/`;
+        res.status(200).json({message:"success", filePath,data:response});
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({message:"internal server error"});
+    }
+}
+
+//update product 
+const updateProduct = async(req,res)=>{
+    try{
+
+        const data = req.body;
+        if(req.files){
+            if(req.files.thumbnail) data.thumbnail = req.files.thumbnail[0].filename;
+            if(req.files.secondary_thumbnail) data.secondary_thumbnail= req.files.secondary_thumbnail[0].filename;
+            if(req.files.images) data.images = req.files.images.map((image)=> image.filename);
+        }
+        const response = await Product.updateOne(req.params,
+            {$set: data}
+        );
+        res.status(200).json({message:"success", data:response});
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({message:"internal server error"});
+    }
+}
+
 
 module.exports = {
     createProduct,
     readProducts,
     updateStatus,
     deleteOneProduct,
-    deleteProducts
+    deleteProducts,
+    readProduct,
+    updateProduct
 }

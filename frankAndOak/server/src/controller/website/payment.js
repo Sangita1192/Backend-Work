@@ -5,7 +5,7 @@ const stripe = require('stripe')('sk_test_51LiyTNSH4QsKt7gAYWZpIajuDuTSeWPEHeEro
  
 const createCheckout = async(req,res)=>{
     try{
-
+        const user = req.body.cart[0].user;
         //create lineitems as stripe payment gateway require data has be in the line format(object of array--every product details has be in object)
         const lineItems = req.body.cart.map((item)=>(
             {
@@ -38,7 +38,7 @@ const createCheckout = async(req,res)=>{
         });
         
         const responseOrder = new Order({
-            user:req.body.cart[0].user._id,
+            user,
             items: lineItems,
             customer:customer,
             amount:req.body.totalAmt
