@@ -8,17 +8,17 @@ import { IoMdAdd } from "react-icons/io";
 export default function MobileSideBar({ sidebarStatus, setSidebarStatus }) {
 
   return (
-    <section className={` ${sidebarStatus ? "translate-x-0" : "-translate-x-full"} z-99duration-300 transform absolute top-0 left-0 bg-[#F9F9F9] w-[90%] h-screen`}>
+    <section className={` ${sidebarStatus ? "translate-x-0" : "-translate-x-full"} z-99duration-300 transform absolute top-0 left-0 bg-[black] w-[90%] h-screen`}>
       <div className='flex items-center justify-between p-3'>
         <CiSearch size={28} />
         <MdClose size={28} onClick={() => setSidebarStatus(false)} />
       </div>
-      <div className='flex flex-grow flex-col bg-white'>
+      {/* <div className='flex flex-grow flex-col bg-[black]'>
         <button className='grow text-sm font-medium p-3 px-2'>This Just In</button>
         <button className='grow text-sm font-medium p-3  px-2'>Women</button>
         <button className='grow text-sm font-medium p-3  px-2'>Men</button>
         <button className='grow text-sm font-medium p-3  px-2'>Our Story</button>
-      </div>
+      </div> */}
       <div className=' w-full h-full px-5'>
         <div>
           <Disclosure>

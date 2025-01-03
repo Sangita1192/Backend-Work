@@ -43,6 +43,26 @@ function ViewProdCat() {
       })
   }
 
+  const handleIsFeaturedStatus = (e)=>{
+    const isFeatured = e.target.textContent !== "Yes";
+         
+    axios.put(`${import.meta.env.VITE_API_URL}admin-panel/product-category/update-featured-status/${e.target.value}`, { isFeatured })
+      .then((response) => {
+        console.log(response.data);
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Product Status has been updated",
+          showConfirmButton: false,
+          timer: 1000
+        });
+        handleProductCategories();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   const handleCheckedProduct = (e) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -149,10 +169,12 @@ return (
               </th>
               <th>  Sr.No. </th>
               <th>  Cateogry Name </th>
+              <th>  Parent Category </th>
               <th>  Description</th>
               <th>  Image </th>
               <th>  Action </th>
               <th>  Status </th>
+              <th>  isFeatured </th>
             </tr>
 
           </thead>
@@ -180,6 +202,7 @@ return (
                         </td>
                         <td>  {index + 1}</td>
                         <td>  {product.name} </td>
+                        <td>  {product.parent_category.name} </td>
                         <td>  {product.description} </td>
                         <td>  <img src={`${filePath}${product.thumbnail}`} alt="photo of the product" style={{ width: '70px' }} /></td>
                         <td >
@@ -202,6 +225,18 @@ return (
                               className={`btn ${product.status ? 'btn-success' : 'btn-danger'}`} data-tooltip-id="status-tooltip" data-tooltip-content={`Click to ${(product.status) ? 'InActive' : 'Active'}}`}>
                               {(product.status) ? "Active"
                                 : "InActive"}
+                            </button>
+                          }
+                        </td>
+                        <td>
+                          {
+                            <button
+                              onClick={handleIsFeaturedStatus}
+                              value={product._id}
+                              className={`btn ${product.isFeatured ? 'btn-success' : 'btn-danger'}`} 
+                              data-tooltip-id="status-tooltip" data-tooltip-content={`Click to ${(product.isFeatured) ? 'Remove from Featured Category' : 'Add to Featured Category'}}`}>
+                              {(product.isFeatured) ? "Yes"
+                                : "No"}
                             </button>
                           }
                         </td>

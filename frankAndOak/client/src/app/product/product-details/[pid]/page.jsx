@@ -6,6 +6,8 @@ import { useParams } from 'next/navigation';
 import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { fetchWishlist } from "@/app/redux/slices/wishlistSlice";
+import { toast } from "react-toastify";
 
 export default function ProductDetails() {
   const { pid } = useParams();
@@ -16,28 +18,47 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [product, setProduct] = useState([]);
-  //const [filePath, setFilePath] = useState('');
+  const [ifItemInWishlist, setIfItemInWishlist] = useState(false);
 
   const userData = useSelector((state) => state.user.value);
   const productData = useSelector((state) => state.product.value);
+  const wishListData = useSelector((state) => state.wishlist.value);
   const filepath = productData?.filePath;
 
   const user = userData?.data?._id;
- 
+
 
   useEffect(() => {
     dispatch(fetchProduct(pid));
   }, [pid, dispatch]);
 
+   // Update view count when the product details are successfully fetched
+   useEffect(() => {
+    if (pid) {
+      // Trigger the view count update when the productId changes
+      axios.get(`http://localhost:4800/api/website/products/view-count/${pid}`)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error( error);
+        });
+    }
+  }, [pid]); // Trigger effect when productId changes
+
   useEffect(() => {
     if (productData.data) {
       setLoading(false);
       setProduct(productData.data);
-      console.log("specific Product ===>", productData)
     };
-   // if(productData.filePath) setFilePath(productData.filePath);
   }, [productData]);
 
+  useEffect(() => {
+ 
+    if (wishListData.data.products && product) {
+      setIfItemInWishlist(wishListData.data.products.some((item) => item._id === product[0]._id));
+    }
+  }, [wishListData, product])
 
   if (loading) {
     return (
@@ -84,7 +105,7 @@ export default function ProductDetails() {
           zIndex: 99999
         });
       })
-      .then(()=>{
+      .then(() => {
         //refresh the page so that cart value updated
         window.location.reload();
       })
@@ -101,10 +122,42 @@ export default function ProductDetails() {
       })
   }
 
+  const handleWishList = (product) => {
+    if (!user) {
+      setLoginStatus(true);
+      return;
+    }
+
+    //check if specific product already in list- remove from wishlist
+    if (ifItemInWishlist) {
+      //Remove from wishList
+      axios.delete(`http://localhost:4800/api/website/wishlist/remove-from-wishlist`, { params: { user, product } }) // Send data as query parameters // Send data as query parameters)
+        .then((response) => {
+          setIfItemInWishlist(false);
+          dispatch(fetchWishlist(user));
+          toast.error("Remove From Wishlist");
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+    else {
+      axios.post(`http://localhost:4800/api/website/wishlist/create-wishlist`, { user, product })
+        .then((response) => {
+          setIfItemInWishlist(true);
+          dispatch(fetchWishlist(user));
+          toast.success("Added to Wishlist");
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+  }
+
   return (
     <>
       {
-        product.length <= 0 ?(
+        product.length <= 0 ? (
           <h1 className="text-center"> No Product Details Available... </h1>
         )
           :
@@ -180,13 +233,17 @@ export default function ProductDetails() {
                   <div className="grid grid-cols-[78%_13%] gap-3 relative ">
                     <button
                       className="bg-[#023020] text-[16px] font-semibold text-white py-5 px-10 w-full hover:bg-[#C1E1C1]"
-                      onClick={()=>handleCart(prod._id)}
+                      onClick={() => handleCart(prod._id)}
                     >
                       Add to cart
                     </button>
                     {loginStatus && <Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} />}
-                    <button className="py-5 border-2 border-[#023020] hover:bg-[#C1E1C1]">
-                      <svg className="mx-auto" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button
+                      className="py-5 border-2 border-[#023020] hover:bg-[#C1E1C1]"
+                      onClick={()=>handleWishList(prod._id)}
+                      title={`${ifItemInWishlist ? 'Remove from Wishlist': "Add to Wishlist" }`}
+                    >
+                      <svg className="mx-auto" width="20" height="20" viewBox="0 0 20 20" fill={`${ifItemInWishlist ? 'red' : "none"}`} xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.3666 3.84123C16.941 3.4154 16.4356 3.07761 15.8794 2.84714C15.3232 2.61667 14.727 2.49805 14.1249 2.49805C13.5229 2.49805 12.9267 2.61667 12.3705 2.84714C11.8143 3.07761 11.3089 3.4154 10.8833 3.84123L9.99994 4.72457L9.1166 3.84123C8.25686 2.98149 7.0908 2.49849 5.87494 2.49849C4.65907 2.49849 3.49301 2.98149 2.63327 3.84123C1.77353 4.70098 1.29053 5.86704 1.29053 7.0829C1.29053 8.29876 1.77353 9.46482 2.63327 10.3246L3.5166 11.2079L9.99994 17.6912L16.4833 11.2079L17.3666 10.3246C17.7924 9.89894 18.1302 9.39358 18.3607 8.83736C18.5912 8.28115 18.7098 7.68497 18.7098 7.0829C18.7098 6.48083 18.5912 5.88465 18.3607 5.32844C18.1302 4.77222 17.7924 4.26686 17.3666 3.84123Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
                       </svg>
                     </button>

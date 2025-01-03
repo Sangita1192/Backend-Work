@@ -122,7 +122,7 @@ function ViewSlider() {
     return (
         <>
             <div className="row m-3 rounded-3 shadow-lg">
-                <h5 className=" px-2 py-3 bg-dark-subtle rounded-top-3">View Stories</h5>
+                <h5 className=" px-2 py-3 bg-dark-subtle rounded-top-3">View Slider</h5>
                 <div>
                     <table className='table'>
                         <thead>

@@ -6,7 +6,7 @@ import ProductSlice from './slices/productSlice'
 import CartSlice from './slices/cartSlice'
 import WishlistSlice from './slices/wishlistSlice'
 import OrderSlice from './slices/orderSlice'
-
+import BannerSlice from './slices/bannerSlice'
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +16,7 @@ export const store = configureStore({
     product: ProductSlice,
     cart: CartSlice,
     wishlist: WishlistSlice,
-    order: OrderSlice
+    order: OrderSlice,
+    banner: BannerSlice
   },
 })

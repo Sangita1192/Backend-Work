@@ -8,7 +8,7 @@ const { createColor, viewColorCategories, updateColorStatus, deleteColor, delete
 const { createParentCategory, viewParentCategory,updateParentCategoryStatus, deleteParentCategory, deleteParentCategories, readParentCategory, updateParentCategory, ActiveParentCategory} = require("./admin-panel/parentCategoryController");
 
 //Product Category controllers
-const { createProductCategory, viewProductCategory, updateProductStatus, deleteProduct, deleteProductCategories, readProductCategory, updateProductCategory, ActiveProductCategory, productCategoryByparentCategory } = require("./admin-panel/productCategoryController");
+const { createProductCategory, viewProductCategory, updateProductStatus, deleteProduct, deleteProductCategories, readProductCategory, updateProductCategory, ActiveProductCategory, productCategoryByparentCategory, updateProductIsFeaturedStatus } = require("./admin-panel/productCategoryController");
 
 // Size Controllers
 const {createSize, viewSizes, updateSizeStatus, deleteSize, deleteMultipleSizes, viewSize, updateSize, ActiveSizes} = require("./admin-panel/sizeController");
@@ -22,8 +22,8 @@ const { createProduct, readProducts, updateStatus, deleteOneProduct, deleteProdu
 //userControllers
 const { generateOtpWeb, registerUser, verifyJwt, loginUser, forgotPassword, resetPassword } = require("./website/userController");
 const { ActiveParentCategoryWeb } = require("./website/ParentCategoryController");
-const { ActiveProductCategoryWeb, ActiveProdCatasParentCategoryWeb } = require("./website/ProductCategoryController");
-const { ActiveProductByParentCatWeb, SearchProducts, AllProductWeb, readProductWeb } = require("./website/ProductController");
+const { ActiveProductCategoryWeb, ActiveProdCatasParentCategoryWeb, featuredCategoryAsParentCategoryWeb } = require("./website/ProductCategoryController");
+const { ActiveProductByParentCatWeb, SearchProducts, AllProductWeb, readProductWeb, mostViewedProducts, incrementViewsCountOfProduct } = require("./website/ProductController");
 const { createCart, readCartforUser, updateCartItemQty, deleteCartItem, deleteCartItems } = require("./website/cartController");
 const { createCheckout, updatePaymentStatus } = require("./website/payment");
 const { createStory, readStories, updateStoryStatus, deleteStory, deleteStories, readStory, updateStory } = require("./admin-panel/storyController");
@@ -31,6 +31,8 @@ const { createSlider, readSliders, updateSliderStatus, deleteSlider, deleteSlide
 const readOrders = require("./admin-panel/orderController");
 const { createWishlist, wishlistsForUser, deleteProductFromWishlist } = require("./website/wishListController");
 const { readOrderHistory } = require("./website/orderHistoryController");
+const { createBanner, readBanners, updateIsfallback, deleteBanner, deleteBanners } = require("./admin-panel/bannerController");
+const { readBannersWeb } = require("./website/bannerController");
 
 
 
@@ -51,6 +53,7 @@ module.exports ={
     deleteProductCategories,
     readProductCategory,
     updateProductCategory,
+    updateProductIsFeaturedStatus,
     ActiveProductCategory,
     registerAdmin,
     adminLogin,
@@ -95,6 +98,11 @@ module.exports ={
     readSlider,
     updateSlider,
     readOrders,
+    createBanner,
+    readBanners,
+    updateIsfallback,
+    deleteBanner,
+    deleteBanners,
 
     //web controllers
     generateOtpWeb,
@@ -107,9 +115,12 @@ module.exports ={
     ActiveProductCategoryWeb,
     ActiveProdCatasParentCategoryWeb,
     ActiveProductByParentCatWeb,
+    featuredCategoryAsParentCategoryWeb,
     SearchProducts,
     AllProductWeb,
     readProductWeb,
+    incrementViewsCountOfProduct,
+    mostViewedProducts,
     createCart,
     readCartforUser,
     updateCartItemQty,
@@ -120,5 +131,6 @@ module.exports ={
     createWishlist,
     wishlistsForUser,
     deleteProductFromWishlist,
-    readOrderHistory
+    readOrderHistory,
+    readBannersWeb
 }

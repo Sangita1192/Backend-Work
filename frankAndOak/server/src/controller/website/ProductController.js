@@ -127,9 +127,50 @@ const readProductWeb = async (req, res) => {
         res.status(500).json({ message: "internal server error!" });
     }
 }
+
+
+//increment ViewCount of Product
+const incrementViewsCountOfProduct = async (req, res) => {
+    try {
+        const product = await Product.findOne(req.params);
+        if (product) {
+            product.viewsCount += 1;
+            product.lastViewedAt = Date.now();
+            const response = await product.save();
+            res.status(200).json({ message: "success", data: response });
+            console.log(response);
+        } else {
+            res.status(404).json({ message: "product not found" });
+        }
+
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "internal server error" });
+    }
+}
+
+//Get Most Viewed Products
+const mostViewedProducts = async (req, res) => {
+    try {
+        // Get products sorted by viewCount in descending order
+        const mostViewedProductsList = await Product.find()
+            .sort({ viewsCount: -1 })
+            .limit(10);  //fetch top 10
+        const filePath = `${req.protocol}://${req.get('host')}/frank-and-oak-admin-files/`;
+        res.status(200).json({ message: "success", data: mostViewedProductsList, filePath })
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "internal server error" });
+    }
+}
 module.exports = {
     ActiveProductByParentCatWeb,
     SearchProducts,
     AllProductWeb,
-    readProductWeb
+    readProductWeb,
+    incrementViewsCountOfProduct,
+    mostViewedProducts
+
 }

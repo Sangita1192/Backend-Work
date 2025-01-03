@@ -144,6 +144,19 @@ function Dashboard() {
                                     </Link>
 
                                 </ul>
+                                <li data-bs-toggle="collapse" data-bs-target="#collapse-8">
+                                    <span className='d-flex gap-3'> <MdOutlineHistory /> Banner </span>
+                                    <MdOutlineKeyboardArrowDown />
+                                </li>
+                                <ul id="collapse-8" className="collapse" data-bs-parent="#admin-dash">
+                                    <Link to="/admin/dashboard/profile/banner">
+                                        <li> Add Banner</li>
+                                    </Link>
+                                    <Link to="/admin/dashboard/profile/viewbanner">
+                                        <li>View Banner</li>
+                                    </Link>
+
+                                </ul>
                                 <li>
                                     <span className='d-flex gap-3'> <MdOutlineStickyNote2 /> Terms and Conditions </span>
                                 </li>

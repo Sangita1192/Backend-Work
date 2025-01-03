@@ -116,6 +116,21 @@ function AddProdCat() {
                             />
                         </div>
                         <div className='d-flex gap-4 align-items-center mt-3'>
+                            <label htmlFor="" className='form-label'> Featured Category </label>
+                            <input
+                                type="radio"
+                                id="isFeatured"
+                                value={true}
+                                name="isFeatured"
+                            /> Yes
+                            <input
+                                type="radio"
+                                id="isFeatured"
+                                value={false}
+                                name="isFeatured"
+                            /> No
+                        </div>
+                        <div className='d-flex gap-4 align-items-center mt-3'>
                             <label htmlFor="" className='form-label'> Status </label>
                             <input
                                 type="radio"

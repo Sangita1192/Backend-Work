@@ -127,7 +127,7 @@ export default function Account() {
 export function AccountSideBar() {
   return (
     <div className='lg:block hidden h-screen'>
-      <div className='bg-[#EBECEE] px-10 py-8'>
+      <div className='bg-[#40B5AD] px-10 py-8'>
         <ul className='space-y-2'>
           <li className='font-medium text-[15px]'>
             <Link href={"/user-dashboard/order"}>Orders & returns</Link>
@@ -139,11 +139,11 @@ export function AccountSideBar() {
           <li className='font-medium text-[15px]'>
           <Link href={"/user-dashboard/wishlist"} className='flex items-center gap-1'>Wishlist <CiHeart size={20} /></Link>
           </li>
-          <li className='font-medium text-[15px]'>Frank&apos;s Club</li>
+          <li className='font-medium text-[15px]'>Style Sphere&apos;s Club</li>
           <li className='font-medium text-[15px]'>Refer a Friend</li>
         </ul>
       </div>
-      <div className='bg-[#EBECEE] px-5 py-5 mt-6'>
+      <div className='bg-[#40B5AD] px-5 py-5 mt-6'>
         <h3 className='text-[22px] font-semibold'>Need Help?</h3>
         <p className='font-medium text-[15px] py-2'>Our Member Services team is online daily.</p>
         <Link href="mailto:rosanchaurasia990@gmail.com">/ <span className='underline text-[15px] hover:font-semibold font-medium underline-offset-2'>Email</span></Link>

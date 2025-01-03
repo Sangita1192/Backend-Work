@@ -17,6 +17,8 @@ const SliderRouter = require('./admin-panel/slider');
 const OrderRouter = require('./admin-panel/order');
 const WishListRouter = require('./website/wishlist');
 const OrderRouterWeb = require('./website/orderHistory');
+const BannerRouter = require('./admin-panel/banner');
+const BannerRouterWeb = require('./website/banner');
 
 
 const adminPanelRouter = express.Router();  //hadnle all the routes of admin-panel
@@ -34,6 +36,7 @@ adminPanelRouter.use('/products', ProductRouter)
 adminPanelRouter.use('/story', StoryRouter);
 adminPanelRouter.use('/slider', SliderRouter);
 adminPanelRouter.use('/order', OrderRouter);
+adminPanelRouter.use('/banner', BannerRouter);
 
 
 //website Routers
@@ -46,6 +49,7 @@ websiteRouter.use('/cart', CartRouter);
 websiteRouter.use('/wishlist', WishListRouter);
 websiteRouter.use('/payment', PaymentRouter);
 websiteRouter.use('/order',OrderRouterWeb);
+websiteRouter.use('/banner', BannerRouterWeb);
 
 
 

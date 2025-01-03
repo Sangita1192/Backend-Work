@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CiSearch } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa6";
+import { FaBars, FaRegHeart } from "react-icons/fa6";
 import { BsBagPlus } from "react-icons/bs";
 import Login from '../modals/Login';
 import Cart from '../pages/cart/page';
@@ -102,12 +102,14 @@ export default function Header() {
     <div className='sticky top-0 z-[9999] w-full'>
       <TextSlider />
       <header className='shadow-md py-2 lg:py-1 px-2 sm:px-4 md:px-10 bg-[#097969] text-white flex justify-between'>
-        <div className='  flex gap-2 sm:gap-4 items-center   basis-[70%] md:basis-[20%] lg:basis-[15%]'>
-          <RxHamburgerMenu onClick={() => setSidebarStatus(true)} className='sm:hidden block w-[22px] h-7' />
-          <MobileSideBar sidebarStatus={sidebarStatus} setSidebarStatus={setSidebarStatus} />
-          <span className='font-bold md:text-[18px] text-[15px]'>
-            <img src="/images/title.jpg" alt="" />
+        <div className='flex gap-2 sm:gap-4 lg:items-center justify-between basis-[100%] lg:basis-[15%]'>
+          <span className='font-bold md:text-[18px] text-[15px] basis-[30%] lg:basis-[100%]'>
+            <img src="/images/title.jpg" alt="" className='w-full' />
           </span>
+          <div>
+            <FaBars onClick={() => setSidebarStatus(true)} className='lg:hidden block h-7 text-[30px]' />
+          </div>
+          <MobileSideBar sidebarStatus={sidebarStatus} setSidebarStatus={setSidebarStatus} />
         </div>
         <nav className=' basis-[30%] lg:basis-[84%] md:basis-[75%]  flex items-center justify-end lg:justify-between'>
           <div className='lg:block  hidden'>
@@ -124,7 +126,7 @@ export default function Header() {
                     </Link>
                     {/* <MenMegaMenu menuHover={menuHover} setMenuHover={setMenuHover} /> */}
                   </li>
-                   
+
 
                 ))
               }
@@ -135,7 +137,7 @@ export default function Header() {
               </li>
             </ul>
           </div>
-          <ul className='flex gap-3 sm:gap-5'>
+          <ul className='gap-3 sm:gap-5 lg:flex hidden'>
             <li>
               <Link href={"/pages/search"}>
                 <CiSearch className='sm:w-7 sm:h-7 h-5 w-5 hover:bg-[#96DED1]' />
@@ -152,15 +154,14 @@ export default function Header() {
             >
               <FaRegUserCircle className='sm:w-[22px] sm:h-7 h-5 w-[18px] hover:bg-[#96DED1] ' />
               <Login loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
-              <ul className={`w-[130px] unstyled shadow-sm bg-gray-200 absolute top-[100%] left-[-150%] divide-y ${(Object.keys(user).length !== 0 && logoutStatus) ? 'block' : 'hidden'}`}>
-                <li className='px-[10px] py-[5px]'> Profile </li>
+              <ul className={`w-[160px] unstyled shadow-sm bg-[#40B5AD] absolute top-[100%] left-[-150%] divide-y ${(Object.keys(user).length !== 0 && logoutStatus) ? 'block' : 'hidden'}`}>
+                <li className='px-[10px] py-[5px] border border-bottom-[#2AAA8A]'> Profile </li>
                 <Link href={`/user-dashboard/order/${user._id}`}>
-                  <li className='px-[10px] py-[5px]'> Your Order</li>
+                  <li className='px-[10px] py-[5px] border border-bottom-[#2AAA8A]'> Your Order</li>
                 </Link>
                 <Link href={'/user-dashboard/wishlist'}>
-                  <li className='px-[10px] py-[5px]'>Your WishList</li>
+                  <li className='px-[10px] py-[5px] border border-bottom-[#2AAA8A]'>Your WishList</li>
                 </Link>
-
                 <li
                   className='px-[10px] py-[5px]'
                   onClick={handleLogout}

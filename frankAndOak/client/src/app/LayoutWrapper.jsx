@@ -12,7 +12,7 @@ export default function LayoutWrapper({ children }) {
 
 
   return (
-    <main>
+    <main className="bg-[#E8F2FB]">
       <Header />
       {/* {removeCommons && <Header /> } */}
       {children}

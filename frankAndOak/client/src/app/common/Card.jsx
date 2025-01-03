@@ -21,7 +21,6 @@ export function Card({ product, filepath }) {
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [wishlistArry, setWishlistArry] = useState([]);
 
   const userData = useSelector((state) => state.user.value);
   const wishListData = useSelector((state) => state.wishlist.value);
@@ -68,7 +67,6 @@ export function Card({ product, filepath }) {
     }
     axios.post('http://localhost:4800/api/website/cart/create-cart', cartData)
       .then((response) => {
-        console.log(response);
         dispatch(fetchCart(user));
         Swal.fire({
           icon: 'success',
@@ -128,7 +126,7 @@ export function Card({ product, filepath }) {
         product &&
         <div className=' w-full h-full'>
         <div className='group relative'>
-          <span className='bg-black text-white absolute right-2 top-2 z-[9999] text-[8px] sm:text-[10px] font-medium uppercase px-0.5 sm:px-1 py-0.5'>
+          <span className='bg-black text-white absolute right-2 top-2 z-[999] text-[8px] sm:text-[10px] font-medium uppercase px-0.5 sm:px-1 py-0.5'>
             {
               (((product.mrp - product.price) / product.mrp) * 100).toFixed(0)
             }

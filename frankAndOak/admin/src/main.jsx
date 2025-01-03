@@ -33,6 +33,9 @@ import ViewSlider from './Admin/ViewSlider.jsx';
 import UpdateStory from './Admin/UpdateStory.jsx';
 import UpdateSlider from './Admin/UpdateSlider.jsx';
 import UpdateProduct from './Admin/UpdateProduct.jsx';
+import Banner from './Admin/AddBanner.jsx';
+import { ViewBanner } from './Admin/ViewBanner.jsx';
+import { UpdateBanner } from './Admin/UpdateBanner.jsx';
 
 const router = createBrowserRouter([
   {
@@ -142,6 +145,18 @@ const router = createBrowserRouter([
       {
         path: '/admin/dashboard/profile/updateslider/:id',
         element: <UpdateSlider/> 
+      },
+      {
+        path: '/admin/dashboard/profile/banner',
+        element: <Banner/> 
+      },
+      {
+        path: '/admin/dashboard/profile/viewbanner',
+        element: <ViewBanner/> 
+      },
+      {
+        path: '/admin/dashboard/profile/updatebanner/:id',
+        element: <UpdateBanner/> 
       }
     ]
   }

@@ -6,6 +6,7 @@ import ThisJustIn from "./HomeComponents/ThisJustIn";
 import ProductReview from "./HomeComponents/ProductReview";
 import BetterLiving from "./HomeComponents/BetterLiving";
 import TextSlider from "./common/TextSlider";
+import MostViewedProducts from "./HomeComponents/MostViewedProducts";
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
     <>
     <Banner/>
     <FeaturedCategories/>
+    <MostViewedProducts/>
     {/* <ThisJustIn/> */}
     <ProductReview/>
     <BetterLiving/>
